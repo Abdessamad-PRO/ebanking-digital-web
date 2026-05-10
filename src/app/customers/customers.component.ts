@@ -64,4 +64,16 @@ handleSearchCustomers(){
    );
 }
 
+handleDeleteCustomer(c:Customer){
+  this.customerService.deleteCustomer(c.id).subscribe({
+    next : (resp:Object) => {
+      this.handleSearchCustomers();
+    },
+    error : err => {
+      console.log(err);
+    }
+  });
+
+}
+
 }
