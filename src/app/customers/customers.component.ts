@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { CustomerService } from '../services/customer.service';
 import { catchError, Observable } from 'rxjs';
 import { Customer } from '../model/customer.model';
+import { FormGroup } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 @Component({
   selector: 'app-customers',
   standalone: false,
@@ -13,9 +15,10 @@ import { Customer } from '../model/customer.model';
 export class CustomersComponent implements OnInit {
   // customers : any; premier declaration
   customers! : Observable<Array<Customer>>;
-  errorMessage! : Object; ;
+  errorMessage! : Object; 
+  searchFormGroup : FormGroup |undefined;
 
-  constructor(private customerService:CustomerService) { }
+  constructor(private customerService:CustomerService, private fb:FormBuilder) { }
 
   // ngOnInit(): void {
   //   this.http.get('http://localhost:8085/customers').subscribe(data=>{
@@ -39,12 +42,25 @@ export class CustomersComponent implements OnInit {
 // }
 
   ngOnInit(): void {
+  this.searchFormGroup=this.fb.group({
+    keyword : this.fb.control('')
+  })
   this.customers= this.customerService.getCustomers().pipe(
     catchError(err => {
       this.errorMessage = err.message;
       throw err;
     })
   );
+}
+
+handleSearchCustomers(){
+   let kw = this.searchFormGroup?.value.keyword;  //? signifie if la valeur exist
+   this.customers = this.customerService.searchCustomers(kw).pipe(
+     catchError(err => {
+       this.errorMessage = err.message;
+       throw err;
+     })
+   );
 }
 
 }
