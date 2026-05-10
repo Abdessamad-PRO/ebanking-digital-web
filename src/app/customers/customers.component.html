@@ -1,5 +1,6 @@
 <div class="container">
-    <div class="card" *ngIf="customers">
+    <ng-container *ngIf="customers|async as listCustomers; else failure">
+        <div class="card"> 
         <div class="card-header">Customers</div>
         <div class="card-body">
             <table class="table">
@@ -9,7 +10,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let c of customers">
+                <tr *ngFor="let c of customers | async" >
                     <td>{{c.id}}</td>
                     <td>{{c.name}}</td>
                     <td>{{c.email}}</td>
@@ -18,4 +19,13 @@
             </table>
         </div>
     </div>
+    </ng-container>
+      <!-- <div *ngIf="errorMessage" class="message-danger">
+            {{errorMessage|json}}
+        </div> -->
+        <ng-template #failure >
+            <div class="text-danger">
+                <h5> {{errorMessage}} </h5>
+            </div>
+        </ng-template>
 </div>
