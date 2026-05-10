@@ -54,7 +54,6 @@ export const environment = {
 ```
 ## Appercu des pages web
 
-
 ## Historique des commits 
 - Ajout navbar, composants customers/accounts et routage.
 - Affichage liste clients + correction CORS.
