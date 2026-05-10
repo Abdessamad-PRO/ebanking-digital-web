@@ -1,59 +1,67 @@
-# DigitalBankingWeb
+# Digital Banking Web
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.7.
+Application frontend Angular pour la gestion des **clients** et la consultation des **comptes bancaires** (détails + opérations paginées), connectée à un backend REST.
 
-## Development server
+## Stack Technique
+- Angular 19
+- TypeScript
+- RxJS
+- Bootstrap 5 + Bootstrap Icons
+- Reactive Forms
+- HttpClient
 
-To start a local development server, run:
+## Fonctionnalités Implémentées
+- Navigation via navbar et routing Angular.
+- Liste des clients avec recherche par mot-clé.
+- Gestion des erreurs d’appel API côté UI.
+- Suppression d’un client.
+- Création d’un nouveau client avec validation formulaire.
+- Redirection vers la liste clients après création réussie + reset des champs.
+- Consultation d’un compte par ID.
+- Affichage formaté du solde et des opérations (date + montant).
+- Pagination des opérations d’un compte.
+- Configuration centralisée de l’URL backend via `environment`.
 
-```bash
-ng serve
+## Routes Frontend
+- `/customers` : recherche / liste des clients.
+- `/new-customer` : formulaire d’ajout client.
+- `/accounts` : recherche d’un compte par ID.
+
+## API Backend Consommée
+Base URL : `http://localhost:8085`
+- `GET /customers`
+- `GET /customers/search?keyword=...`
+- `POST /customers`
+- `DELETE /customers/{id}`
+- `GET /accounts/{accountId}/pageOperations?page={p}&size={s}`
+
+## Pré-requis
+- Node.js LTS
+- npm
+- Angular CLI (`npm i -g @angular/cli`)
+- Backend API démarré sur `http://localhost:8085`
+
+## Installation & Lancement (Windows)
+Application disponible sur : `http://localhost:4200`
+
+## Configuration
+Fichier : `src/environments/environment.ts`
+```ts
+export const environment = {
+  production: false,
+  backendHost: 'http://localhost:8085'
+};
 ```
+## Appercu des pages web
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Historique des commits 
+- Ajout navbar, composants customers/accounts et routage.
+- Affichage liste clients + correction CORS.
+- Création des services et injection des dépendances.
+- Interface `Customer` + gestion affichage erreurs/liste.
+- Variable d’environnement + recherche par keyword.
+- Ajout client + validations.
+- Suppression client.
+- Validation `required` sur `name`/`email`, reset champs et redirection.
+- Affichage formaté des comptes/opérations par ID.
