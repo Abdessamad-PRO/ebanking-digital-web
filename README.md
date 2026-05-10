@@ -54,6 +54,9 @@ export const environment = {
 ```
 ## Appercu des pages web
 
+<img width="720" height="330" alt="banking" src="https://github.com/user-attachments/assets/450fce10-9721-4e3b-91b8-003c71a54e98" />
+
+
 ## Historique des commits 
 - Ajout navbar, composants customers/accounts et routage.
 - Affichage liste clients + correction CORS.
