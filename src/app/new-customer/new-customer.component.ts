@@ -4,6 +4,7 @@ import { FormBuilder } from '@angular/forms';
 import { CustomerService } from '../services/customer.service';
 import { Customer } from '../model/customer.model';
 import { Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-new-customer',
   standalone: false,
@@ -12,7 +13,7 @@ import { Validators } from '@angular/forms';
 })
 export class NewCustomerComponent implements OnInit {
   newCustomerFormGroup! : FormGroup;
-  constructor(private fb:FormBuilder , private customerService:CustomerService) { }
+  constructor(private fb:FormBuilder , private customerService:CustomerService, private router:Router) { }
 
  ngOnInit(): void {
   this.newCustomerFormGroup = this.fb.group({
@@ -26,6 +27,8 @@ export class NewCustomerComponent implements OnInit {
     this.customerService.saveCustomer(customer).subscribe({
       next : data => {
         alert("Customer has been successfully saved!");
+        this.newCustomerFormGroup.reset();    //pour vider les champs
+        this.router.navigateByUrl("/customers");
       },
       error : err => {
         console.log(err);

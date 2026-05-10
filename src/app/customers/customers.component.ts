@@ -6,6 +6,7 @@ import { catchError, Observable } from 'rxjs';
 import { Customer } from '../model/customer.model';
 import { FormGroup } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
+import { map } from 'rxjs';
 @Component({
   selector: 'app-customers',
   standalone: false,
@@ -67,13 +68,19 @@ handleSearchCustomers(){
 handleDeleteCustomer(c:Customer){
   this.customerService.deleteCustomer(c.id).subscribe({
     next : (resp:Object) => {
-      this.handleSearchCustomers();
+      // this.handleSearchCustomers();
+      this.customers = this.customers.pipe(
+       map(data=>{
+        let index = data.indexOf(c);
+        data.slice(index,1);
+        return data;
+       })
+      );
     },
     error : err => {
       console.log(err);
     }
   });
 
-}
-
+}   
 }
